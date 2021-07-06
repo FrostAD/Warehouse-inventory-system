@@ -1,0 +1,36 @@
+created:
+    - database/factories/Models/CategoryFactory.php
+    - database/factories/Models/ItemFactory.php
+    - database/factories/Models/CompanyFactory.php
+    - database/factories/Models/TypeFactory.php
+    - database/factories/Models/SupplyFactory.php
+    - database/factories/Models/OrderFactory.php
+    - database/migrations/2021_07_02_091501_create_categories_table.php
+    - database/migrations/2021_07_02_091502_create_items_table.php
+    - database/migrations/2021_07_02_091503_create_companies_table.php
+    - database/migrations/2021_07_02_091504_create_types_table.php
+    - database/migrations/2021_07_02_091505_create_supplies_table.php
+    - database/migrations/2021_07_02_091506_create_orders_table.php
+    - app/Models/Category.php
+    - app/Models/Item.php
+    - app/Models/Company.php
+    - app/Models/Type.php
+    - app/Models/Supply.php
+    - app/Models/Order.php
+    - database/seeders/CategorySeeder.php
+    - database/seeders/ItemSeeder.php
+    - database/seeders/CompanySeeder.php
+    - database/seeders/TypeSeeder.php
+    - database/seeders/SupplySeeder.php
+    - database/seeders/OrderSeeder.php
+models:
+    Category: { name: 'string:100 unique', details: 'text nullable', relationships: { hasMany: Item } }
+    Item: { name: 'string:200', price: decimal, quantity: integer, 'minimum quantity': integer, 'auto fill': boolean, relationships: { belongsTo: 'Company, Category' } }
+    Company: { name: 'string:200 unique', address: 'string:200', telephone: 'string:20', relationships: { belongsTo: Type, hasMany: Item } }
+    Type: { name: 'string:200 unique', relationships: { hasMany: Company } }
+    Models/Category: { name: 'string:100 unique', details: 'text nullable', relationships: { hasMany: Item } }
+    Models/Item: { name: 'string:200', price: decimal, quantity: integer, minimum_quantity: integer, auto_fill: boolean, manufacturer_id: id, category_id: id, relationships: { belongsTo: 'Company, Category' } }
+    Models/Company: { name: 'string:200 unique', address: 'string:200', telephone: 'string:20', type_id: id, relationships: { belongsTo: Type, hasMany: Item } }
+    Models/Type: { name: 'string:200 unique', relationships: { hasMany: Company } }
+    Models/Supply: { company_id: id, item_id: id, ordered_at: timestamp, quantity: integer, price: decimal, arrives_at: timestamp, arrived: boolean, user_id: id }
+    Models/Order: { user_id: id, item_id: id, date: timestamp, quantity: integer, price: decimal, staff_id: id }

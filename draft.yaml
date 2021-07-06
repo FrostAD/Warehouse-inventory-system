@@ -1,0 +1,48 @@
+models:
+  Models/Type:
+    name: string:200 unique
+    relationships:
+      hasMany: Company
+  Models/Company:
+    name: string:200 unique
+    address: string:200
+    telephone: string:20
+    type_id: id
+    relationships:
+      belongsTo: Type
+      hasMany: Item
+  Models/Category:
+    name: string:100 unique
+    details: text nullable
+    relationships:
+      hasMany: Item
+
+  Models/Item:
+    name: string:200
+    price: decimal
+    quantity: integer
+    minimum_quantity: integer
+    auto_fill: boolean
+    manufacturer_id: id
+    category_id: id
+    relationships:
+      belongsTo: Company, Category
+
+  Models/Supply:
+    company_id: id
+    item_id: id
+    ordered_at: timestamp
+    quantity: integer
+    price: decimal
+    arrives_at: timestamp
+    arrived: boolean
+    user_id: id
+  Models/Order:
+    user_id: id
+    item_id: id
+    date: timestamp
+    quantity: integer
+    price: decimal
+    staff_id: id
+
+seeders: Category, Item, Company, Type, Supply, Order
